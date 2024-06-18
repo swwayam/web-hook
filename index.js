@@ -1,45 +1,40 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+// TODO: Import the express module
 
-// Store webhook subscriptions
-const subscriptions = {};
+// TODO: Create an instance of an Express application
 
-// Middleware for JSON parsing
-app.use(express.json());
+// TODO: Define the port number the server will listen on
+const port = 1337; // DO NOT CHANGE
 
-// API 1: Create a webhook subscription
-app.post('/subscribe/:event', (req, res) => {
-    const event = req.params.event;
-    const url = req.body.url;
-    if (!subscriptions[event]) subscriptions[event] = [];
-    subscriptions[event].push(url);
-    res.json({ message: `Subscribed to event ${event}` });
+// TODO: Create an object to store webhook subscriptions
+
+// TODO: Use JSON middleware to parse JSON request bodies
+
+// TODO: Define an API endpoint to create a webhook subscription
+app.post("/subscribe/:event", (req, res) => {
+  // TODO: Extract the event name from the URL parameters
+  // TODO: Extract the URL from the request body
+  // TODO: If there are no subscriptions for the event, initialize an empty array
+  // TODO: Add the URL to the list of subscriptions for the event
+  // TODO: Send a JSON response confirming the subscription
 });
 
-// API 2: Trigger an event
-app.post('/trigger/:event', (req, res) => {
-    const event = req.params.event;
-    const payload = req.body;
-
-    if (!subscriptions[event]) {
-        return res.status(404).json({ error: 'No subscriptions for this event' });
-    }
-
-    // Simulate sending webhooks (you'd use an actual HTTP client here)
-    subscriptions[event].forEach(url => {
-        console.log(`Sending webhook to ${url} for event ${event}:`, payload);
-    });
-
-    res.json({ message: `Event ${event} triggered` });
+// TODO: Define an API endpoint to trigger an event
+app.post("/trigger/:event", (req, res) => {
+  // TODO: Extract the event name from the URL parameters
+  // TODO: Extract the payload from the request body
+  // TODO: Check if there are any subscriptions for the event If no subscriptions, send a 404 response with an error message
+  // TODO: Simulate sending webhooks by logging each subscription URL and the payload
+  // TODO: Send a JSON response confirming the event was triggered
 });
 
-// API 3: List subscriptions for an event
-app.get('/subscriptions/:event', (req, res) => {
-    const event = req.params.event;
-    res.json({ subscriptions: subscriptions[event] || [] });
+// TODO: Define an API endpoint to list subscriptions for a specific event
+app.get("/subscriptions/:event", (req, res) => {
+  // TODO: Extract the event name from the URL parameters
+  // TODO: Send a JSON response with the list of subscriptions for the event (or an empty array if none exist)
 });
 
+// TODO: Start the server and have it listen on the specified port
 app.listen(port, () => {
-    console.log(`Webhook server listening at http://localhost:${port}`);
+  // Log a message to the console once the server is running
+  console.log(`Webhook server listening at http://localhost:${port}`);
 });
